@@ -16,6 +16,7 @@
   --line: #b8b8b6;
   --green: #587b6c;
   --shadow: 0 18px 42px rgba(45, 47, 49, 0.12);
+  --header-height: 116px;
   letter-spacing: 0;
 }
 
@@ -57,7 +58,19 @@ img {
 .site-shell {
   min-height: 100vh;
   overflow-x: hidden;
+  padding-top: var(--header-height);
   background: var(--paper);
+}
+
+#top,
+#studio,
+#services,
+#materials,
+#calculator,
+#portfolio,
+#request,
+#contacts {
+  scroll-margin-top: calc(var(--header-height) + 18px);
 }
 
 .section-frame {
@@ -66,8 +79,10 @@ img {
 }
 
 .topbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 30;
   display: grid;
   grid-template-columns: 160px 1fr auto;
@@ -865,17 +880,21 @@ img {
 }
 
 @media (max-width: 1060px) {
+  :root {
+    --header-height: 94px;
+  }
+
   .topbar {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 132px 1fr auto;
     min-height: 94px;
   }
 
   .nav {
-    justify-content: flex-end;
+    justify-content: center;
+    font-size: 0.86rem;
   }
 
   .header-cta {
-    grid-column: 2;
     justify-self: end;
   }
 
@@ -905,12 +924,15 @@ img {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --header-height: 178px;
+  }
+
   .section-frame {
     width: min(100% - 24px, 1120px);
   }
 
   .topbar {
-    position: static;
     grid-template-columns: 1fr;
     gap: 14px;
     min-height: 0;
