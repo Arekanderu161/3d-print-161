@@ -4,56 +4,46 @@ import {
   Calculator,
   Check,
   Clock,
-  GraduationCap,
   MapPin,
   MessageCircle,
   PhoneCall,
-  Printer,
-  ScanLine,
   Send,
-  Shapes,
-  Wrench,
 } from 'lucide-react';
 
 const services = [
   {
     id: 'print',
-    title: '3D-печать',
-    short: 'Единичные изделия, мелкие серии и крупные детали.',
+    title: '3D печать',
+    short: 'Высококачественное создание деталей и объектов на заказ с использованием современных технологий 3D-печати.',
     price: 1200,
-    icon: Printer,
     portfolio: ['Корпус прибора', 'Макет детали', 'Фигура 32 см'],
   },
   {
     id: 'modeling',
     title: 'Моделирование',
-    short: 'Художественные и промышленные модели по описанию, образцу или чертежу.',
+    short: 'Разработка индивидуальных 3D-моделей по вашим чертежам или идеям для последующей печати.',
     price: 2500,
-    icon: Shapes,
     portfolio: ['3D-модель персонажа', 'Кронштейн', 'Прототип ручки'],
   },
   {
     id: 'scan',
     title: 'Сканирование',
-    short: 'Цифровая копия объекта для печати, доработки или реверс-инжиниринга.',
+    short: 'Точное 3D-сканирование объектов для создания цифровых моделей с последующей печатью или доработкой.',
     price: 1800,
-    icon: ScanLine,
     portfolio: ['Скан бюста', 'Копия крепления', 'Архивная деталь'],
   },
   {
     id: 'repair',
     title: 'Ремонт',
-    short: 'Диагностика, восстановление и настройка 3D-принтеров.',
+    short: 'Восстановление и настройка 3D-принтеров для их корректной работы и продления срока службы.',
     price: 1500,
-    icon: Wrench,
     portfolio: ['Замена узла подачи', 'Калибровка стола', 'Настройка слайсера'],
   },
   {
     id: 'training',
     title: 'Обучение',
-    short: 'Практика по печати, моделированию, материалам и обслуживанию оборудования.',
+    short: 'Профессиональное обучение по 3D-печати, моделированию и работе с оборудованием.',
     price: 3000,
-    icon: GraduationCap,
     portfolio: ['Индивидуальный урок', 'Запуск принтера', 'Печать первой модели'],
   },
 ];
@@ -77,7 +67,7 @@ const colors = [
 const works = [
   {
     title: 'Цельная фигура',
-    category: '3D-печать',
+    category: '3D печать',
     text: 'Высокая детализация, подготовка к покраске и аккуратная постобработка.',
   },
   {
@@ -139,71 +129,70 @@ export default function App() {
     <div className="site-shell">
       <header className="topbar">
         <a className="brand" href="#top" aria-label="161 градусов">
-          <span className="brand-mark">161°</span>
+          <span className="brand-mark">161</span>
+          <span className="brand-degree" />
         </a>
+
         <nav className="nav" aria-label="Основная навигация">
+          <a className="is-current" href="#top">Главная</a>
+          <a href="#studio">О студии</a>
           <a href="#services">Услуги</a>
-          <a href="#calculator">Расчёт</a>
           <a href="#materials">Материалы</a>
-          <a href="#portfolio">Портфолио</a>
-          <a href="#contacts">Контакты</a>
         </nav>
-        <div className="header-actions">
-          <a className="urgent-link" href="tel:+70000000000">
-            <PhoneCall size={18} />
-            Срочная связь
-          </a>
-          <a className="telegram-link" href="https://t.me/" target="_blank" rel="noreferrer">
-            <MessageCircle size={18} />
-            Telegram
-          </a>
-        </div>
+
+        <a className="header-cta" href="#request">Оставить заявку</a>
       </header>
 
       <main id="top">
-        <section className="hero section-frame">
-          <div className="hero-copy">
-            <p className="section-kicker">Ростов-на-Дону</p>
-            <h1>3D-печать 161° для деталей, фигур и прототипов</h1>
-            <p className="hero-lead">
-              Печатаем, моделируем, сканируем, ремонтируем 3D-принтеры и обучаем работе с оборудованием.
-              Поможем быстро оценить задачу и передадим заявку конструктору.
-            </p>
-            <div className="quick-services" aria-label="Быстрый выбор услуги">
-              {services.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    className={selectedService === item.id ? 'quick-service is-active' : 'quick-service'}
-                    key={item.id}
-                    type="button"
-                    onClick={() => pickService(item.id)}
-                  >
-                    <Icon size={18} />
-                    {item.title}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="hero-actions">
-              <a className="primary-button" href="#request">
-                <Send size={18} />
-                Оставить заявку
-              </a>
-              <a className="secondary-button" href="#calculator">
-                <Calculator size={18} />
-                Рассчитать стоимость
-              </a>
-            </div>
-          </div>
+        <section className="hero-showcase" aria-label="Главная">
+          <div className="hero-inner section-frame">
+            <a className="studio-pill" href="#portfolio">
+              <MessageCircle size={16} />
+              Жизнь студии
+            </a>
 
-          <div className="hero-visual" aria-label="3D-принтер 161">
-            <img src="/assets/hero-printer.jpg" alt="3D-принтер мастерской 161" />
-            <div className="hero-visual-badge">
-              <span>161°</span>
-              <strong>прямые заявки вместо маркетплейсов</strong>
+            <div className="hero-watermark" aria-hidden="true">161°</div>
+            <div className="hero-wordmark" aria-hidden="true">DEGREE</div>
+
+            <div className="hero-machine" aria-label="3D-принтер">
+              <span className="machine-sun" />
+              <span className="machine-line line-one" />
+              <span className="machine-line line-two" />
+              <img src="/assets/hero-printer.jpg" alt="3D-принтер мастерской 161" />
+            </div>
+
+            <div className="hero-statement">
+              <h1>161°</h1>
+              <p>- это 3D-печать высокого уровня</p>
+              <span>Печать, обучение, реверс-инжиниринг, настройка принтеров, оптимизация моделей</span>
             </div>
           </div>
+        </section>
+
+        <section className="services-intro section-frame" id="services">
+          <div className="services-title">
+            <h2>Услуги</h2>
+            <p>Качественная печать, обучение, реверс-инжиниринг, настройка принтеров, оптимизация моделей</p>
+          </div>
+        </section>
+
+        <section className="service-stripes" aria-label="Каталог услуг">
+          {services.map((item) => (
+            <button
+              className={activeService === item.id ? 'service-stripe is-active' : 'service-stripe'}
+              key={item.id}
+              type="button"
+              onMouseEnter={() => setActiveService(item.id)}
+              onFocus={() => setActiveService(item.id)}
+              onClick={() => pickService(item.id)}
+            >
+              <span className="service-name">{item.title}</span>
+              <span className="service-description">{item.short}</span>
+              <span className="service-jump" aria-hidden="true">
+                <ArrowDownRight size={36} strokeWidth={2.25} />
+              </span>
+            </button>
+          ))}
         </section>
 
         <section className="calculator-band" id="calculator">
@@ -263,8 +252,8 @@ export default function App() {
                   <span>Ориентир от</span>
                   <strong>{formatPrice(estimatedPrice)} ₽</strong>
                 </div>
-                <a href="#request" className="price-action">
-                  <ArrowDownRight size={22} />
+                <a href="#request" className="price-action" aria-label="Перейти к заявке">
+                  <ArrowDownRight size={24} />
                 </a>
               </div>
               <p className="fine-print">
@@ -275,52 +264,24 @@ export default function App() {
           </div>
         </section>
 
-        <section className="services-section section-frame" id="services">
+        <section className="studio-section section-frame" id="studio">
           <div className="section-heading">
-            <p className="section-kicker">Каталог услуг</p>
-            <h2>От идеи до готовой детали</h2>
+            <p className="section-kicker">О студии</p>
+            <h2>Мастерская прямых заказов в Ростове-на-Дону</h2>
           </div>
-
-          <div className="services-board">
-            <div className="services-list">
-              {services.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    className={activeService === item.id ? 'service-row is-active' : 'service-row'}
-                    key={item.id}
-                    type="button"
-                    onMouseEnter={() => setActiveService(item.id)}
-                    onFocus={() => setActiveService(item.id)}
-                    onClick={() => pickService(item.id)}
-                  >
-                    <span className="service-title">
-                      <Icon size={24} />
-                      {item.title}
-                    </span>
-                    <span className="service-short">{item.short}</span>
-                    <span className="service-arrow">
-                      <ArrowDownRight size={26} />
-                    </span>
-                  </button>
-                );
-              })}
+          <div className="studio-grid">
+            <div>
+              <strong>5 направлений</strong>
+              <span>Печать, моделирование, сканирование, ремонт и обучение.</span>
             </div>
-
-            <aside className="service-preview" aria-label="Примеры работ по выбранной услуге">
-              <div className="preview-media">
-                <img src="/assets/services-reference.jpg" alt="Стиль страницы услуг 161" />
-              </div>
-              <p className="preview-label">{active.title}</p>
-              <ul>
-                {active.portfolio.map((item) => (
-                  <li key={item}>
-                    <Check size={16} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </aside>
+            <div>
+              <strong>Прямая заявка</strong>
+              <span>Данные заказа передаются конструктору без маркетплейсов.</span>
+            </div>
+            <div>
+              <strong>Быстрый старт</strong>
+              <span>Первичный расчёт помогает быстро понять порядок стоимости.</span>
+            </div>
           </div>
         </section>
 
@@ -375,7 +336,7 @@ export default function App() {
         <section className="portfolio-section section-frame" id="portfolio">
           <div className="section-heading">
             <p className="section-kicker">Портфолио</p>
-            <h2>Демо-примеры для первого показа</h2>
+            <h2>Примеры работ для первого показа</h2>
           </div>
           <div className="portfolio-grid">
             {works.map((work, index) => (
@@ -411,6 +372,10 @@ export default function App() {
                   <PhoneCall size={18} />
                   +7 000 000-00-00
                 </span>
+                <a href="https://t.me/" target="_blank" rel="noreferrer">
+                  <MessageCircle size={18} />
+                  Telegram
+                </a>
               </div>
             </div>
 
