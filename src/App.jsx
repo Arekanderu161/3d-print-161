@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowDownRight,
   Check,
@@ -209,6 +209,7 @@ function formatPrice(value) {
 }
 
 export default function App() {
+  const [activeNav, setActiveNav] = useState('top');
   const [selectedService, setSelectedService] = useState(services[0].id);
   const [activeService, setActiveService] = useState(services[0].id);
   const [selectedMaterial, setSelectedMaterial] = useState(materials[0].id);
@@ -266,6 +267,18 @@ export default function App() {
       ? [repairModeOption.label, repairScopeOption.label, 'Связь в Telegram / Whatsapp']
       : [trainingFormatOption.label, trainingLevelOption.label, 'Подбор программы'];
 
+  useEffect(() => {
+    function syncActiveNav() {
+      const hash = window.location.hash.replace('#', '');
+      const nextId = navigation.some((item) => item.id === hash) ? hash : 'top';
+      setActiveNav(nextId);
+    }
+
+    syncActiveNav();
+    window.addEventListener('hashchange', syncActiveNav);
+    return () => window.removeEventListener('hashchange', syncActiveNav);
+  }, []);
+
   function selectService(id) {
     setSelectedService(id);
     setActiveService(id);
@@ -292,7 +305,12 @@ export default function App() {
 
         <nav className="nav" aria-label="Основная навигация">
           {navigation.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className={item.id === 'top' ? 'is-current' : ''}>
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={item.id === activeNav ? 'is-current' : ''}
+              onClick={() => setActiveNav(item.id)}
+            >
               {item.label}
             </a>
           ))}
@@ -308,6 +326,32 @@ export default function App() {
       <main id="top">
         <section className="hero-showcase" aria-label="Главный экран">
           <img className="hero-asset" src="/assets/Главный экран _ var 6.png" alt="Главный экран 161 градусов" />
+          <div className="hero-overlay">
+            <div className="hero-utility-row" aria-label="Полезные ссылки">
+              <a className="hero-channel-link is-utility" href="#portfolio">
+                <img className="hero-channel-icon" src="/assets/Telegram_logo_icon 1.png" alt="" aria-hidden="true" />
+                Жизнь студии
+              </a>
+              <a className="hero-channel-link is-utility" href="#contacts">
+                <img className="hero-channel-icon" src="/assets/Telegram_logo_icon 1.png" alt="" aria-hidden="true" />
+                Тг организации
+              </a>
+              <a className="hero-channel-link is-utility" href="#contacts">
+                <img className="hero-channel-icon" src="/assets/Telegram_logo_icon 1.png" alt="" aria-hidden="true" />
+                Тг Ильи
+              </a>
+            </div>
+
+            <div className="hero-live-copy">
+              <h1 className="sr-only">161° — это 3D-печать высокого уровня</h1>
+              <img
+                className="hero-slogan-image"
+                src="/assets/— это 3D-печать высокого уровня.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+          </div>
         </section>
 
         <section className="services-intro section-frame" id="services">
