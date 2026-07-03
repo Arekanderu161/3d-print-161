@@ -1,8 +1,8 @@
 @font-face {
   font-family: "Squares Bold";
   src:
-    url("https://db.onlinewebfonts.com/t/6df9b3173928f3d45e934e18d7a48634.woff2") format("woff2"),
-    url("https://db.onlinewebfonts.com/t/6df9b3173928f3d45e934e18d7a48634.woff") format("woff");
+    url("/fonts/SquaresBoldRegular.woff2") format("woff2"),
+    url("/fonts/SquaresBoldRegular.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -11,8 +11,8 @@
 @font-face {
   font-family: "TT Squares";
   src:
-    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Regular.woff2") format("woff2"),
-    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Regular.woff") format("woff");
+    url("/fonts/TTSquares-Regular.woff2") format("woff2"),
+    url("/fonts/TTSquares-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -21,8 +21,8 @@
 @font-face {
   font-family: "TT Squares";
   src:
-    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Bold.woff2") format("woff2"),
-    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Bold.woff") format("woff");
+    url("/fonts/TTSquares-Bold.woff2") format("woff2"),
+    url("/fonts/TTSquares-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -292,10 +292,10 @@ img {
 
 .hero-utility-row::before {
   position: absolute;
-  top: -14px;
-  right: -16px;
-  bottom: -14px;
-  left: -16px;
+  top: -18px;
+  right: -20px;
+  bottom: -26px;
+  left: -20px;
   z-index: -1;
   background: #ffffff;
   content: "";
@@ -310,7 +310,7 @@ img {
   color: var(--panel);
   background: rgba(143, 143, 142, 0.94);
   border: 0;
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.96rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1125,18 +1125,20 @@ img {
 }
 
 .segmented-services {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: 1.05fr 1.42fr 1.15fr 0.9fr 0.9fr;
 }
 
 .segment {
   min-height: 48px;
-  padding: 10px 12px;
+  padding: 10px 8px;
   color: var(--ink);
   background: #f7f5f1;
   font-family: "Tektur", "Segoe UI", sans-serif;
-  font-size: 0.76rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
+  line-height: 1.1;
+  text-align: center;
   cursor: pointer;
 }
 
