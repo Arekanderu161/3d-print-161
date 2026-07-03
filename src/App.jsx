@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowDownRight,
-  Check,
   MapPin,
   MessageCircle,
   PhoneCall,
@@ -229,8 +228,6 @@ export default function App() {
   const [isSent, setIsSent] = useState(false);
 
   const service = services.find((item) => item.id === selectedService) ?? services[0];
-  const active = services.find((item) => item.id === activeService) ?? services[0];
-  const openServiceModal = services.find((item) => item.id === openServiceModalId) ?? null;
   const material = materials.find((item) => item.id === selectedMaterial) ?? materials[0];
   const color = colors.find((item) => item.id === selectedColor) ?? colors[0];
   const repairModeOption = repairModes.find((item) => item.id === repairMode) ?? repairModes[0];
@@ -281,17 +278,6 @@ export default function App() {
     window.addEventListener('hashchange', syncActiveNav);
     return () => window.removeEventListener('hashchange', syncActiveNav);
   }, []);
-
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    if (openServiceModalId) {
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, [openServiceModalId]);
 
   function selectService(id) {
     setSelectedService(id);
@@ -373,62 +359,69 @@ export default function App() {
 
         <section className="service-stripes" aria-label="Каталог услуг">
           {services.map((item) => (
-            <article
-              key={item.id}
-              className={activeService === item.id ? 'service-stripe is-active' : 'service-stripe'}
-              onMouseEnter={() => setActiveService(item.id)}
-              onFocus={() => setActiveService(item.id)}
-            >
-              <button
-                type="button"
-                className="service-stripe-body"
-                onClick={() => selectService(item.id)}
+            <div className="service-entry" key={item.id}>
+              <article
+                className={activeService === item.id ? 'service-stripe is-active' : 'service-stripe'}
+                onMouseEnter={() => setActiveService(item.id)}
+                onFocus={() => setActiveService(item.id)}
               >
-                <span className="service-name">{item.title}</span>
-                <span className="service-description">{item.short}</span>
-              </button>
-              <button
-                type="button"
-                className="service-jump"
-                aria-label={`Открыть описание услуги ${item.title}`}
-                onClick={() => {
-                  selectService(item.id);
-                  setOpenServiceModalId(item.id);
-                }}
-              >
-                <ArrowDownRight size={34} strokeWidth={2.2} />
-              </button>
-            </article>
-          ))}
-        </section>
+                <button
+                  type="button"
+                  className="service-stripe-body"
+                  onClick={() => selectService(item.id)}
+                >
+                  <span className="service-name">{item.title}</span>
+                  <span className="service-description">{item.short}</span>
+                </button>
+                <button
+                  type="button"
+                  className="service-jump"
+                  aria-label={`Открыть описание услуги ${item.title}`}
+                  onClick={() => {
+                    selectService(item.id);
+                    setOpenServiceModalId((current) => (current === item.id ? null : item.id));
+                  }}
+                >
+                  <ArrowDownRight size={34} strokeWidth={2.2} />
+                </button>
+              </article>
 
-        <section className="service-preview-band">
-          <div className="section-frame service-preview-layout">
-            <div className="service-preview-copy">
-              <p className="section-kicker">{active.preview.label}</p>
-              <h3>{active.title}</h3>
-              <p>{active.lead}</p>
-              <div className="service-bullets">
-                {active.bullets.map((item) => (
-                  <span key={item}>
-                    <Check size={16} />
-                    {item}
-                  </span>
-                ))}
-              </div>
+              {openServiceModalId === item.id && (
+                <div className="service-inline-popover-wrap">
+                  <div className={`service-inline-popover service-inline-popover-${item.id}`}>
+                    <button
+                      type="button"
+                      className="service-inline-popover-close"
+                      aria-label="Закрыть описание услуги"
+                      onClick={() => setOpenServiceModalId(null)}
+                    >
+                      <X size={18} />
+                    </button>
+                    <p className="section-kicker">{item.preview.label}</p>
+                    <h3>{item.title}</h3>
+                    <p className="service-inline-popover-lead">{item.lead}</p>
+                    <div className="service-inline-popover-content">
+                      <div className="service-inline-bullets">
+                        {item.bullets.map((bullet) => (
+                          <span key={bullet}>{bullet}</span>
+                        ))}
+                      </div>
+
+                      <div className="service-inline-case">
+                        <strong>{item.preview.title}</strong>
+                        <p>{item.preview.text}</p>
+                        <div className="service-inline-tags">
+                          {item.chips.map((chip) => (
+                            <span key={chip}>{chip}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-
-            <article className={`service-preview-card service-preview-${active.id}`}>
-              <span className="preview-label">{active.title}</span>
-              <strong>{active.preview.title}</strong>
-              <p>{active.preview.text}</p>
-              <div className="preview-tags">
-                {active.chips.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            </article>
-          </div>
+          ))}
         </section>
 
         <section className="portfolio-section section-frame" id="portfolio">
@@ -780,33 +773,6 @@ export default function App() {
           </div>
         </section>
 
-        {openServiceModal && (
-          <div
-            className="service-modal-backdrop"
-            role="presentation"
-            onClick={() => setOpenServiceModalId(null)}
-          >
-            <div
-              className="service-modal"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="service-modal-title"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <button
-                type="button"
-                className="service-modal-close"
-                aria-label="Закрыть описание услуги"
-                onClick={() => setOpenServiceModalId(null)}
-              >
-                <X size={20} />
-              </button>
-              <p className="section-kicker">Описание услуги</p>
-              <h3 id="service-modal-title">{openServiceModal.title}</h3>
-              <p className="service-modal-placeholder">Контент для этого окна заполним после следующего согласования с клиентом.</p>
-            </div>
-          </div>
-        )}
       </main>
     </div>
   );
