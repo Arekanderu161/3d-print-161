@@ -6,6 +6,7 @@ import {
   MessageCircle,
   PhoneCall,
   Send,
+  X,
 } from 'lucide-react';
 
 const navigation = [
@@ -212,6 +213,7 @@ export default function App() {
   const [activeNav, setActiveNav] = useState('top');
   const [selectedService, setSelectedService] = useState(services[0].id);
   const [activeService, setActiveService] = useState(services[0].id);
+  const [openServiceModalId, setOpenServiceModalId] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(materials[0].id);
   const [selectedColor, setSelectedColor] = useState(colors[0].id);
   const [repairMode, setRepairMode] = useState(repairModes[0].id);
@@ -228,6 +230,7 @@ export default function App() {
 
   const service = services.find((item) => item.id === selectedService) ?? services[0];
   const active = services.find((item) => item.id === activeService) ?? services[0];
+  const openServiceModal = services.find((item) => item.id === openServiceModalId) ?? null;
   const material = materials.find((item) => item.id === selectedMaterial) ?? materials[0];
   const color = colors.find((item) => item.id === selectedColor) ?? colors[0];
   const repairModeOption = repairModes.find((item) => item.id === repairMode) ?? repairModes[0];
@@ -278,6 +281,17 @@ export default function App() {
     window.addEventListener('hashchange', syncActiveNav);
     return () => window.removeEventListener('hashchange', syncActiveNav);
   }, []);
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    if (openServiceModalId) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [openServiceModalId]);
 
   function selectService(id) {
     setSelectedService(id);
@@ -334,10 +348,6 @@ export default function App() {
               </a>
               <a className="hero-channel-link is-utility" href="#contacts">
                 <img className="hero-channel-icon" src="/assets/Telegram_logo_icon 1.png" alt="" aria-hidden="true" />
-                Тг организации
-              </a>
-              <a className="hero-channel-link is-utility" href="#contacts">
-                <img className="hero-channel-icon" src="/assets/Telegram_logo_icon 1.png" alt="" aria-hidden="true" />
                 Тг Ильи
               </a>
             </div>
@@ -363,20 +373,32 @@ export default function App() {
 
         <section className="service-stripes" aria-label="Каталог услуг">
           {services.map((item) => (
-            <button
+            <article
               key={item.id}
-              type="button"
               className={activeService === item.id ? 'service-stripe is-active' : 'service-stripe'}
               onMouseEnter={() => setActiveService(item.id)}
               onFocus={() => setActiveService(item.id)}
-              onClick={() => selectService(item.id)}
             >
-              <span className="service-name">{item.title}</span>
-              <span className="service-description">{item.short}</span>
-              <span className="service-jump" aria-hidden="true">
+              <button
+                type="button"
+                className="service-stripe-body"
+                onClick={() => selectService(item.id)}
+              >
+                <span className="service-name">{item.title}</span>
+                <span className="service-description">{item.short}</span>
+              </button>
+              <button
+                type="button"
+                className="service-jump"
+                aria-label={`Открыть описание услуги ${item.title}`}
+                onClick={() => {
+                  selectService(item.id);
+                  setOpenServiceModalId(item.id);
+                }}
+              >
                 <ArrowDownRight size={34} strokeWidth={2.2} />
-              </span>
-            </button>
+              </button>
+            </article>
           ))}
         </section>
 
@@ -430,8 +452,8 @@ export default function App() {
         <section className="materials-band" id="materials">
           <div className="section-frame materials-layout">
             <div className="section-heading">
-              <p className="section-kicker">Материалы и цвета</p>
-              <h2>Чек-лист выбора под задачу, прочность и внешний вид</h2>
+              <p className="section-kicker">Материалы</p>
+              <h2>Чек-лист выбора материала под задачу, прочность и внешний вид</h2>
             </div>
 
             <div className="materials-grid">
@@ -466,24 +488,6 @@ export default function App() {
                     <span className="material-colors">{item.colors}</span>
                   </label>
                 ))}
-              </div>
-
-              <div className="checklist-panel">
-                <h3>Цвета в работе</h3>
-                <div className="color-grid">
-                  {colors.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      className={selectedColor === item.id ? 'color-swatch is-active' : 'color-swatch'}
-                      onClick={() => setSelectedColor(item.id)}
-                    >
-                      <span style={{ backgroundColor: item.value }} />
-                      <strong>{item.title}</strong>
-                      <small>{item.note}</small>
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -661,10 +665,13 @@ export default function App() {
                 </a>
               </div>
 
-              <div className="calculator-summary">
-                {quickSummary.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
+              <div className="calculator-selection">
+                <span className="calculator-selection-label">Результат выбора</span>
+                <div className="calculator-summary">
+                  {quickSummary.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
               </div>
 
               <p className="fine-print">
@@ -772,6 +779,34 @@ export default function App() {
             </form>
           </div>
         </section>
+
+        {openServiceModal && (
+          <div
+            className="service-modal-backdrop"
+            role="presentation"
+            onClick={() => setOpenServiceModalId(null)}
+          >
+            <div
+              className="service-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="service-modal-title"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="service-modal-close"
+                aria-label="Закрыть описание услуги"
+                onClick={() => setOpenServiceModalId(null)}
+              >
+                <X size={20} />
+              </button>
+              <p className="section-kicker">Описание услуги</p>
+              <h3 id="service-modal-title">{openServiceModal.title}</h3>
+              <p className="service-modal-placeholder">Контент для этого окна заполним после следующего согласования с клиентом.</p>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

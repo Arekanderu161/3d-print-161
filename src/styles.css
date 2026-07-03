@@ -1,4 +1,32 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Tektur:wght@500;700;800&display=swap");
+@font-face {
+  font-family: "Squares Bold";
+  src:
+    url("https://db.onlinewebfonts.com/t/6df9b3173928f3d45e934e18d7a48634.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/6df9b3173928f3d45e934e18d7a48634.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Squares";
+  src:
+    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Regular.woff2") format("woff2"),
+    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Squares";
+  src:
+    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Bold.woff2") format("woff2"),
+    url("https://en.bestfonts.pro/fonts_files/5d999028a8907d60049dc82e/files/TTSquares-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --paper: #fbfaf7;
@@ -16,9 +44,11 @@
   --green: #587b6c;
   --shadow: 0 24px 70px rgba(53, 55, 58, 0.12);
   --header-height: 116px;
+  --font-body: "TT Squares", "Segoe UI", sans-serif;
+  --font-heading: "Squares Bold", "TT Squares", "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--paper);
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   font-synthesis: none;
   line-height: 1.35;
   text-rendering: optimizeLegibility;
@@ -256,7 +286,7 @@ img {
   display: flex;
   gap: 12px;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   pointer-events: auto;
 }
 
@@ -520,7 +550,7 @@ img {
 
 .service-stripe {
   display: grid;
-  grid-template-columns: minmax(280px, 31vw) 1fr 122px;
+  grid-template-columns: 1fr 122px;
   gap: 28px;
   align-items: center;
   width: 100%;
@@ -539,6 +569,20 @@ img {
 .service-stripe:focus-visible,
 .service-stripe.is-active {
   background: #d7d6d2;
+}
+
+.service-stripe-body {
+  display: grid;
+  grid-template-columns: minmax(280px, 31vw) 1fr;
+  gap: 28px;
+  align-items: center;
+  width: 100%;
+  min-height: 112px;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
 }
 
 .service-name {
@@ -828,7 +872,7 @@ img {
 
 .materials-grid {
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-columns: 1fr;
   gap: 22px;
   align-items: start;
 }
@@ -1246,6 +1290,20 @@ img {
   gap: 10px;
 }
 
+.calculator-selection {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid rgba(89, 91, 95, 0.14);
+  padding-top: 16px;
+}
+
+.calculator-selection-label {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .calculator-summary span,
 .request-summary span,
 .request-summary strong {
@@ -1314,6 +1372,105 @@ img {
   background: rgba(88, 123, 108, 0.14);
   border-left: 4px solid var(--green);
   font-weight: 700;
+}
+
+.service-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(43, 45, 49, 0.56);
+  backdrop-filter: blur(6px);
+}
+
+.service-modal {
+  position: relative;
+  width: min(680px, 100%);
+  min-height: 280px;
+  padding: 28px;
+  background: var(--panel);
+  border: 1px solid rgba(89, 91, 95, 0.12);
+  box-shadow: var(--shadow);
+}
+
+.service-modal h3 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 0.96;
+  text-transform: uppercase;
+}
+
+.service-modal-placeholder {
+  max-width: 38ch;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.service-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--ink);
+  background: #f2efea;
+  cursor: pointer;
+}
+
+.service-modal-close:hover,
+.service-modal-close:focus-visible {
+  background: #e2dfd8;
+}
+
+.nav,
+.header-cta,
+.primary-button,
+.secondary-button,
+.price-action,
+.hero-channel-link,
+.section-kicker,
+.service-description,
+.preview-label,
+.material-colors,
+.field-label,
+.select-field span,
+.request-form label span,
+.price-result span,
+.calculator-selection-label,
+.calculator-summary span,
+.request-summary span,
+.request-summary strong,
+.contact-strip span,
+.contact-strip a,
+.work-card span,
+.segment,
+.calc-note strong,
+.calc-note {
+  font-family: var(--font-body);
+}
+
+.services-title h2,
+.service-name,
+.service-preview-copy h3,
+.service-preview-card strong,
+.section-heading h2,
+.calculator-copy h2,
+.request-copy h2,
+.studio-copy h2,
+.work-card h3,
+.checklist-panel h3,
+.material-title strong,
+.studio-year,
+.price-result strong,
+.service-modal h3 {
+  font-family: var(--font-heading);
 }
 
 @media (max-width: 1120px) {
@@ -1393,6 +1550,11 @@ img {
   .portfolio-grid,
   .studio-points {
     grid-template-columns: 1fr;
+  }
+
+  .service-stripe-body {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .studio-section::before {
@@ -1536,10 +1698,6 @@ img {
     padding: 18px 14px;
   }
 
-  .service-name {
-    grid-column: 1 / -1;
-  }
-
   .service-jump {
     width: 58px;
     height: 58px;
@@ -1553,6 +1711,10 @@ img {
   .calculator-summary,
   .field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .service-modal {
+    padding: 24px 20px;
   }
 }
 
@@ -1666,6 +1828,17 @@ img {
     width: 100%;
   }
 
+  .hero-utility-row {
+    gap: 8px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .hero-channel-link.is-utility {
+    width: auto;
+    max-width: 100%;
+  }
+
   .studio-collage {
     min-height: 360px;
   }
@@ -1679,5 +1852,10 @@ img {
   .segmented,
   .segmented-services {
     grid-template-columns: 1fr;
+  }
+
+  .service-modal {
+    min-height: 0;
+    padding: 22px 16px;
   }
 }
