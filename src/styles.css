@@ -1007,28 +1007,21 @@ img {
 .studio-section {
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.92)),
-    var(--paper);
+  padding: 0;
+  background: #ffffff url("/assets/О студии _ var 1 (1).png") center top / cover no-repeat;
 }
 
 .studio-section::before {
-  position: absolute;
-  top: 68px;
-  right: -12%;
-  width: 60%;
-  height: 82%;
-  background: linear-gradient(135deg, transparent 0 24%, rgba(78, 80, 85, 0.96) 24% 100%);
-  content: "";
+  display: none;
 }
 
 .studio-layout {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: 0.94fr 1.06fr;
-  gap: 28px;
-  align-items: center;
+  display: block;
+  min-height: 820px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
 }
 
 .studio-year {
@@ -1046,81 +1039,49 @@ img {
   margin-top: 12px;
 }
 
+.studio-heading {
+  display: grid;
+  gap: 6px;
+  max-width: 12ch;
+  margin-top: 12px;
+  line-height: 0.92;
+}
+
+.studio-heading span {
+  display: block;
+}
+
 .studio-text {
   max-width: 660px;
 }
 
-.studio-button {
-  margin-top: 24px;
-  width: max-content;
-}
-
-.studio-points {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 26px;
-}
-
-.studio-points article {
-  padding: 18px;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(89, 91, 95, 0.08);
-}
-
-.studio-points strong {
-  display: block;
-  font-family: "Tektur", "Segoe UI", sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.studio-points p {
-  margin: 10px 0 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-}
-
-.studio-collage {
-  position: relative;
-  min-height: 620px;
-  overflow: hidden;
-  border: 1px solid rgba(89, 91, 95, 0.08);
-  background: #3c3f44;
-  box-shadow: var(--shadow);
-}
-
-.studio-collage::after {
-  position: absolute;
-  right: -40px;
-  bottom: -40px;
-  width: 220px;
-  height: 220px;
-  border: 18px solid rgba(214, 75, 47, 0.9);
-  content: "";
-  transform: rotate(45deg);
-}
-
-.studio-collage::before {
+.studio-copy-visual {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
-  width: 42%;
-  height: 100%;
-  background: linear-gradient(90deg, rgba(251, 250, 247, 0.995) 0 70%, rgba(251, 250, 247, 0) 100%);
-  content: "";
+  z-index: 2;
+  display: grid;
+  align-content: start;
+  gap: 24px;
+  width: min(46%, 660px);
+  padding: 92px 0 0 56px;
 }
 
-.studio-collage img {
+.studio-heading-art {
+  display: block;
+  width: min(100%, 520px);
+  height: auto;
+}
+
+.studio-copy-art {
+  display: inline-flex;
+  width: min(100%, 590px);
+}
+
+.studio-copy-art img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 92% center;
-  filter: saturate(1.02) contrast(1.02);
-  transform: scale(1.68);
-  transform-origin: 88% center;
+  height: auto;
 }
 
 .calculator-layout,
@@ -1481,8 +1442,7 @@ img {
     font-size: 9.4rem;
   }
 
-  .portfolio-grid,
-  .studio-points {
+  .portfolio-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1511,8 +1471,22 @@ img {
     bottom: 0;
   }
 
-  .studio-collage {
-    min-height: 520px;
+  .studio-layout {
+    min-height: 700px;
+  }
+
+  .studio-copy-visual {
+    width: min(48%, 560px);
+    padding: 74px 0 0 42px;
+    gap: 22px;
+  }
+
+  .studio-heading-art {
+    width: min(100%, 430px);
+  }
+
+  .studio-copy-art {
+    width: min(100%, 470px);
   }
 }
 
@@ -1647,6 +1621,29 @@ img {
   .service-jump {
     width: 58px;
     height: 58px;
+  }
+
+  .studio-copy-visual {
+    gap: 22px;
+    padding-top: 8px;
+  }
+
+  .studio-layout {
+    min-height: 620px;
+  }
+
+  .studio-copy-visual {
+    width: min(52%, 470px);
+    padding: 56px 0 0 28px;
+    gap: 18px;
+  }
+
+  .studio-heading-art {
+    width: min(100%, 360px);
+  }
+
+  .studio-copy-art {
+    width: min(100%, 390px);
   }
 
   .segmented-services {
@@ -1785,8 +1782,22 @@ img {
     max-width: 100%;
   }
 
-  .studio-collage {
-    min-height: 360px;
+  .studio-copy-visual {
+    width: min(56%, 340px);
+    padding: 42px 0 0 20px;
+    gap: 14px;
+  }
+
+  .studio-layout {
+    min-height: 500px;
+  }
+
+  .studio-heading-art {
+    width: min(100%, 260px);
+  }
+
+  .studio-copy-art {
+    width: min(100%, 300px);
   }
 
   .calculator-panel,

@@ -488,29 +488,18 @@ export default function App() {
 
         <section className="studio-section" id="studio">
           <div className="section-frame studio-layout">
-            <div className="studio-copy">
-              <p className="studio-year">3 года</p>
-              <h2>на рынке скорость без срывов дедлайнов</h2>
-              <p className="studio-text">
-                Мы инженеры, дизайнеры и фанаты 3D-технологий. Проводим лекции, мастер-классы и выступаем на различных
-                мероприятиях, а в работе держим темп и прямую связь с заказчиком.
-              </p>
-              <a className="primary-button studio-button" href="#contacts">
-                Наша кухня
+            <div className="studio-copy studio-copy-visual">
+              <img
+                className="studio-heading-art"
+                src="/assets/Frame 48096360.png"
+                alt="3 года на рынке. Скорость без срывов дедлайнов."
+              />
+              <a className="studio-copy-art" href="#contacts">
+                <img
+                  src="/assets/Frame 48096359.png"
+                  alt="Мы — инженеры, дизайнеры и фанаты 3D-технологий. Проводим лекции, мастер-классы и выступаем на различных мероприятиях. Наша кухня."
+                />
               </a>
-
-              <div className="studio-points">
-                {studioPoints.map((item) => (
-                  <article key={item.title}>
-                    <strong>{item.title}</strong>
-                    <p>{item.text}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="studio-collage" aria-hidden="true">
-              <img src="/assets/О студии _ var 1.png" alt="" />
             </div>
           </div>
         </section>
